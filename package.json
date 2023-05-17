@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "startDev": "nodemon script.ts",
+    "test": "nodemon ./tests/test1.ts",
     "lint": "next lint"
   },
   "dependencies": {

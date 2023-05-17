@@ -18,7 +18,7 @@ async function main() {
     const allAuthors = await prisma.author.findMany();
     console.log("ALL AUTHORS: ", allAuthors)
 
-    // [update] updates user
+    // [update] updates author
     const updatedAuthor = await prisma.author.update({
         where: {
             username: "andrew"
@@ -29,7 +29,7 @@ async function main() {
     })
     console.log("UPDATED AUTHOR: ", updatedAuthor)
 
-    // [delete] deletes user
+    // [delete] deletes author
     const deleteAuthor = await prisma.author.delete({
         where: {
             username: "updated username"

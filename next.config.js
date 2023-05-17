@@ -1,4 +1,16 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
 
-module.exports = nextConfig
+module.exports = {
+    serverRuntimeConfig: {
+      PROJECT_ROOT: __dirname,
+    },
+    async rewrites() {
+      return [
+        {
+          source: '/api/:path*',
+          destination: '/api',
+        },
+      ];
+    },
+  };
+  
