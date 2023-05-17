@@ -14,7 +14,8 @@ export default async function handler(req, res) {
         title,
         body,
         authorId,
-        tags: { connect: tags.map(tagId => ({ id: tagId })) },
+        // tags
+        // tags: { connect: tags.map(tagId => ({ id: tagId })) },
       },
     });
     res.status(201).json(post);
