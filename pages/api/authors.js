@@ -1,42 +1,24 @@
-import { PrismaClient } from "@prisma/client";
-import bodyParser from 'body-parser';
-
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-
-handler.use(bodyParser.json());
-
-handler.post(async (req, res) => {
-  const { username } = req.body;
-
-  // Check if username is provided
-  if (!username) {
-    res.status(400).json({ message: "Username is required" });
-    return;
-  }
-
-  // delete all authors
-  await prisma.author.deleteMany();
-
-  // create an author
-  await prisma.author.create({
-    data: {
-      username: username,
-      givenName: "Andrew",
-      familyName: "Andrew R A",
-    },
-  });
-
-  // Fetch the author by username
-  const author = await prisma.author.findUnique({
-    where: { username: username },
-  });
-
-  if (!author) {
-    res.status(404).json({ message: "Author not found" });
+export default async function handler(req, res) {
+  if (req.method === 'GET') {
+    // fetch all authors
+    const authors = await prisma.author.findMany();
+    res.status(200).json(authors);
+  } else if (req.method === 'POST') {
+    // create new author
+    const { title, body, authorId, tags } = req.body;
+    const post = await prisma.post.create({
+      data: {
+        title,
+        body,
+        authorId,
+        tags: { connect: tags.map(tagId => ({ id: tagId })) },
+      },
+    });
+    res.status(201).json(post);
   } else {
-    res.status(200).json(author);
+    res.status(405).json({ message: 'Method Not Allowed' });
   }
-});
-
-export default handler;
+}
