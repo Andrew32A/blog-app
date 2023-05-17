@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     const { query: searchQuery, tags, authorId } = req.query;
 
-    // Build Prisma query
+    // build Prisma query
     const posts = await prisma.post.findMany({
       where: {
         OR: [

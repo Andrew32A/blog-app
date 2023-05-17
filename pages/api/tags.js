@@ -1,8 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-import prisma from '../../path/to/your/prisma/client';
-
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     // Fetch all tags
